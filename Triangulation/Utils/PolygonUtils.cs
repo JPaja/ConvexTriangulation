@@ -82,19 +82,18 @@ namespace Triangulation.Utils
             
             GenerateInnerBoundTriangulations(left,right,solutions, innerLeft, triangulation, topTangent, botTangent, innerRight);
 
-
-            if (!topTangent.Dot1.Equals(botTangent.Dot1) || !topTangent.Dot2.Equals(botTangent.Dot2))
+            innerLeft.Insert(0,topTangent.Dot1);
+            if (!topTangent.Dot1.Equals(botTangent.Dot1))
+                innerLeft.Add(botTangent.Dot1);
+            innerRight.Insert(0,topTangent.Dot2);
+            if (!topTangent.Dot2.Equals(botTangent.Dot2))
+                innerRight.Add(botTangent.Dot2);
+            if (innerRight.Count != 1 || innerLeft.Count != 1)
             {
-                innerLeft.Insert(0,topTangent.Dot1);
-                if (!topTangent.Dot1.Equals(botTangent.Dot1))
-                    innerLeft.Add(botTangent.Dot1);
-
-                innerRight.Insert(0,topTangent.Dot2);
-                if (!topTangent.Dot2.Equals(botTangent.Dot2))
-                    innerRight.Add(botTangent.Dot2);
-                var newTriangulation = Triangulate(innerLeft, innerRight,solutions);
+                var newTriangulation = Triangulate(innerLeft, innerRight, solutions);
                 triangulation.AddRange(newTriangulation);
             }
+
             return new Polygon(result.ToArray(),innderDots.ToArray(),triangulation.ToArray());
         }
 
@@ -279,13 +278,12 @@ namespace Triangulation.Utils
         }
         
 
-        
+        //Monotone polygon triangulation
         private static List<Line> Triangulate(List<Dot> innerLeft, List<Dot> innerRight, List<(IDrawable,bool Remove)> solutions)
         {
             var triangulation = new List<Line>();
             if (!innerLeft.Any() || !innerRight.Any())
                 return triangulation;
-            return triangulation;
             int right = 0;
             for (var left = 0; left < innerLeft.Count; left++)
             {

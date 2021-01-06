@@ -4,11 +4,16 @@
     <projectFile>Triangulation.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ec0364c-337c-4d20-afe0-e6d85e703715" name="Default Changelist" comment="" />
+    <list default="true" id="3ec0364c-337c-4d20-afe0-e6d85e703715" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Utils/PolygonUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/PolygonUtils.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5785D10F-98B5-468E-926E-ED55029BA921/7f/f29f4702/Primitives.cs" root0="SKIP_HIGHLIGHTING" />
@@ -29,11 +34,12 @@
       <option value="$PROJECT_DIR$/Models/Line.cs" />
       <option value="$PROJECT_DIR$/Models/Polygon.cs" />
       <option value="$PROJECT_DIR$/Models/Dot.cs" />
-      <option value="$PROJECT_DIR$/Utils/PolygonUtils.cs" />
       <option value="$PROJECT_DIR$/Game1.cs" />
+      <option value="$PROJECT_DIR$/Utils/PolygonUtils.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1mWIv6pSRgTFnrpUXlZXL6K8h2r" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -79,6 +85,7 @@
       <workItem from="1609679196399" duration="4204000" />
       <workItem from="1609876292225" duration="28281000" />
       <workItem from="1609910540033" duration="7452000" />
+      <workItem from="1609935021659" duration="349000" />
     </task>
     <servers />
   </component>
@@ -91,23 +98,6 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Utils/PolygonUtils.cs</url>
-          <line>114</line>
-          <properties documentPath="$PROJECT_DIR$/Utils/PolygonUtils.cs" initialLine="114" containingFunctionPresentation="method 'GenerateRightInnerBoundTriangulation'">
-            <startOffsets>
-              <option value="5490" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5566" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Frame#Triangulation.Utils.PolygonUtils.GenerateRightInnerBoundTriangulation" memberName="right" />
