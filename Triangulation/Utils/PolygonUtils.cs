@@ -333,12 +333,14 @@ namespace Triangulation.Utils
         private static bool CanTriangulate(List<Dot> innerLeft, List<Dot> innerRight,Dot leftPoint, Dot rightPoint)
         {
             var leftIndex = innerLeft.IndexOf(leftPoint);
-            if (leftIndex + 1 < innerLeft.Count && TriangleOrientation(leftPoint, rightPoint, innerLeft[leftIndex + 1]) < 0)
-                return true;
+            if (leftIndex - 1 >= 0 
+                && Slope(leftPoint,rightPoint,true) <= Slope(innerLeft[leftIndex - 1],rightPoint,true))
+                return false;
             var rightIndex = innerRight.IndexOf(rightPoint);
-            if (rightIndex - 1 >= 0 && TriangleOrientation(leftPoint, rightPoint, innerRight[rightIndex - 1]) > 0)
-                return true;
-            return false;
+            if (rightIndex + 1 < innerRight.Count 
+                && Slope(leftPoint,rightPoint,true) <= Slope(leftPoint,innerRight[rightIndex + 1],true))
+                return false;
+            return true;
         }
 
         private static Stack<Dot> GenerateYStack(List<Dot> innerLeft, List<Dot> innerRight)
