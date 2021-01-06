@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.3/resharper-host/local/Transient/Rider/v203/SolutionCaches/_.19.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Content" t="Include">
+        <e p="Content.mgcb" t="Include" />
+        <e p="obj" t="Include">
+          <e p="DesktopGL" t="Include">
+            <e p="Content" t="Include">
+              <e p=".mgstats" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Game1.cs" t="Include" />
+      <e p="Icon.bmp" t="Include" />
+      <e p="Icon.ico" t="Include" />
+      <e p="Microsoft.Xna.Framework.Content.ContentTypeReader" t="Include" />
+      <e p="Models" t="Include">
+        <e p="Dot.cs" t="Include" />
+        <e p="IDrawable.cs" t="Include" />
+        <e p="Line.cs" t="Include" />
+        <e p="Polygon.cs" t="Include" />
+      </e>
+      <e p="Program.cs" t="Include" />
+      <e p="Triangulation.csproj" t="IncludeRecursive" />
+      <e p="Utils" t="Include">
+        <e p="PolygonUtils.cs" t="Include" />
+      </e>
+      <e p="app.manifest" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive">
+        <e p="Debug" t="Include">
+          <e p="netcoreapp3.1" t="Include">
+            <e p="Triangulation.AssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
