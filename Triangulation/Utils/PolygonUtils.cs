@@ -83,11 +83,8 @@ namespace Triangulation.Utils
             innerRight.Insert(0,topTangent.Dot2);
             if (!topTangent.Dot2.Equals(botTangent.Dot2))
                 innerRight.Add(botTangent.Dot2);
-            if (innerRight.Count != 1 || innerLeft.Count != 1)
-            {
-                var newTriangulation = Triangulate(innerLeft, innerRight, solutions);
-                triangulation.AddRange(newTriangulation);
-            }
+            var newTriangulation = Triangulate(innerLeft, innerRight, solutions);
+            triangulation.AddRange(newTriangulation);
 
             return new Polygon(result.ToArray(),innderDots.ToArray(),triangulation.ToArray());
         }
@@ -278,7 +275,7 @@ namespace Triangulation.Utils
             List<(IDrawable, bool Remove)> solutions)
         {
             var triangulation = new List<Line>();
-            var currL = 0;
+            /*var currL = 0;
             var currR = 0;
             var lflag = true;
             var rflag = true;
@@ -301,9 +298,9 @@ namespace Triangulation.Utils
                     triangulation.Add(new Line(innerLeft[currL], innerRight[currR-1], Color.Pink));
                     AddTemporarySolution(new Line(innerLeft[currL], innerRight[currR-1], Color.Pink), solutions);
                 }
-            }
+            }*/
             
-            /*var stack = GenerateYStack(innerLeft, innerRight);
+            var stack = GenerateYStack(innerLeft, innerRight);
             while (stack.Count >= 3)
             {
                 var dot1 = stack.Pop();
@@ -319,10 +316,11 @@ namespace Triangulation.Utils
                     triangulation.Add(new Line(dot2, dot3, Color.Pink));
                     AddTemporarySolution(new Line(dot2, dot3, Color.Pink), solutions);
                 }
-                stack.Push(dot2);
                 stack.Push(dot3);
+                stack.Push(dot2);                
+
             }
-*/
+
             return triangulation;
         }
         private static bool CanTriangulate(List<Dot> innerLeft, List<Dot> innerRight,Dot leftPoint, Dot rightPoint, bool lflag)
