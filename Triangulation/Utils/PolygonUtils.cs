@@ -62,13 +62,8 @@ namespace Triangulation.Utils
                 innerLeft.Add(left.Vertex[i % left.VertexLength]);
             
             var innerRight = new List<Dot>(); 
-            
             for(var i = right.VertexIndexOf(right.PreviousVertex(topTangent.Dot2)); i != right.VertexIndexOf(botTangent.Dot2); i =(i == 0?right.VertexLength: i-1))
                 innerRight.Add(right.Vertex[i % right.VertexLength]);
-            /*for(var i = right.VertexIndexOf(topTangent.Dot2) - 1; i >= 0; i--)
-                innerRight.Add(right.Vertex[i]);
-            for(var i = right.VertexLength - 1; i > right.VertexIndexOf(botTangent.Dot2); i--)
-                innerRight.Add(right.Vertex[i]);*/
             
             var innderDots = new List<Dot>();
             innderDots.AddRange(left.Inner);
@@ -279,81 +274,111 @@ namespace Triangulation.Utils
         
 
         //Monotone polygon triangulation
-        private static List<Line> Triangulate(List<Dot> innerLeft, List<Dot> innerRight, List<(IDrawable,bool Remove)> solutions)
+        private static List<Line> Triangulate(List<Dot> innerLeft, List<Dot> innerRight,
+            List<(IDrawable, bool Remove)> solutions)
         {
             var triangulation = new List<Line>();
-            if (!innerLeft.Any() || !innerRight.Any())
-                return triangulation;
-            int right = 0;
-            for (var left = 0; left < innerLeft.Count; left++)
+            /*var stack = GenerateYStack(innerLeft, innerRight);
+            while (stack.Count >= 3)
             {
-                if(right == innerRight.Count)
-                    break;
-                var canLeft = left + 1 < innerLeft.Count; /*&& right != innerRight.Count -1*/;
-                var canRight = right + -1 >= 0; /*&& left != innerLeft.Count -1*/;
-                while (right < innerRight.Count)
+                var dot1 = stack.Pop();
+                var dot1Side = innerLeft.Contains(dot1);
+                var dot2 = stack.Pop();
+                var dot2Side = innerLeft.Contains(dot2);
+                var dot3 = stack.Pop();
+                var dot3Side = innerLeft.Contains(dot3);
+                var orientation = TriangleOrientation(dot1, dot2, dot3);
+                if (dot1Side && dot2Side && !dot3Side || dot1Side && !dot2Side && dot3Side
+                || !dot1Side && !dot2Side && dot3Side || !dot1Side && dot2Side && !dot3Side )
                 {
-                    if (!canRight && !canLeft) 
-                        break;
-                    triangulation.Add(new Line(innerLeft[left], innerRight[right], Color.Purple));
-                    AddTemporarySolution(new Line(innerLeft[left], innerRight[right], Color.Purple), solutions);
-                    right++;
+                    triangulation.Add(new Line(dot2, dot3, Color.Pink));
+                    AddTemporarySolution(new Line(dot2, dot3, Color.Pink), solutions);
                 }
-                if (left + 1 < innerLeft.Count)
-                {
-                    triangulation.Add(new Line(innerLeft[left + 1], innerRight[right -1], Color.Purple));
-                    AddTemporarySolution(new Line(innerLeft[left + 1], innerRight[right -1], Color.Purple), solutions);
-                }
-                /*if(right == innerRight.Count)
-                    break;
-                var canLeft = left + 1 < innerLeft.Count /*&& right != innerRight.Count -1#1#;
-                var canRight = right + 1 < innerRight.Count /*&& left != innerLeft.Count -1#1#;*/
-                /*if (canLeft && canRight)
-                {
-                    var distLeft = Vector2.Distance(innerLeft[left + 1].Position, innerRight[right].Position);
-                    var distRight = Vector2.Distance(innerLeft[left].Position, innerRight[right + 1].Position);
-                    if (distLeft < distRight)
-                    {
-                        triangulation.Add(new Line(innerLeft[left + 1], innerRight[right], Color.Purple));
-                        AddTemporarySolution(new Line(innerLeft[left + 1],innerRight[right], Color.Purple),solutions);
-                    }
-                    else
-                    {
-                        triangulation.Add(new Line(innerLeft[left], innerRight[right + 1], Color.Purple));
-                        AddTemporarySolution(new Line(innerLeft[left],innerRight[right + 1], Color.Purple),solutions);
-                        right++;
-                    }
-                }
-                else if (canLeft)
-                {
-                    triangulation.Add(new Line(innerLeft[left + 1], innerRight[right], Color.Purple));
-                    AddTemporarySolution(new Line(innerLeft[left + 1],innerRight[right], Color.Purple),solutions);
-                }
-                else if (canRight)
-                {
-                    triangulation.Add(new Line(innerLeft[left], innerRight[right + 1], Color.Purple));
-                    AddTemporarySolution(new Line(innerLeft[left],innerRight[right + 1], Color.Purple),solutions);
-                    right++;
-                }*/
+                stack.Push(dot2);
+                stack.Push(dot3);
             }
-            
-            /*while (left < innerLeft.Count && right < innerRight.Count)
-            {
-                while (left < innerRight.Count && right < innerRight.Count && CanTriangulate(innerLeft, innerRight,innerLeft[left], innerRight[right]))
-                {
-                    triangulation.Add(new Line(innerLeft[left], innerRight[right], Color.RosyBrown));
-                    AddTemporarySolution(new Line(innerLeft[left],innerRight[right], Color.RosyBrown),solutions);
-                    right++;
-                }
-                left++;
-                if (left < innerLeft.Count && right != 0)
-                {
-                    triangulation.Add(new Line(innerLeft[left], innerRight[right - 1], Color.RosyBrown));
-                    AddTemporarySolution(new Line(innerLeft[left], innerRight[right - 1], Color.RosyBrown), solutions);
-                }
-            }*/
+*/
             return triangulation;
         }
+        /*var triangulation = new List<Line>();
+        int right = 0;
+        for (var left = 0; left < innerLeft.Count; left++)
+        {
+            if(right == innerRight.Count)
+                break;
+            var canLeft = left + 1 < innerLeft.Count; /*&& right != innerRight.Count -1#1#;
+            var canRight = right + -1 >= 0; /*&& left != innerLeft.Count -1#1#;
+            while (right < innerRight.Count)
+            {
+                if (!canRight && !canLeft) 
+                    break;
+                triangulation.Add(new Line(innerLeft[left], innerRight[right], Color.Purple));
+                AddTemporarySolution(new Line(innerLeft[left], innerRight[right], Color.Purple), solutions);
+                right++;
+            }
+            if (left + 1 < innerLeft.Count)
+            {
+                triangulation.Add(new Line(innerLeft[left + 1], innerRight[right -1], Color.Purple));
+                AddTemporarySolution(new Line(innerLeft[left + 1], innerRight[right -1], Color.Purple), solutions);
+            }*/
+        /*if(right == innerRight.Count)
+            break;
+        var canLeft = left + 1 < innerLeft.Count /*&& right != innerRight.Count -1#1#;
+        var canRight = right + 1 < innerRight.Count /*&& left != innerLeft.Count -1#1#;*/
+        /*if (canLeft && canRight)
+        {
+            var distLeft = Vector2.Distance(innerLeft[left + 1].Position, innerRight[right].Position);
+            var distRight = Vector2.Distance(innerLeft[left].Position, innerRight[right + 1].Position);
+            if (distLeft < distRight)
+            {
+                triangulation.Add(new Line(innerLeft[left + 1], innerRight[right], Color.Purple));
+                AddTemporarySolution(new Line(innerLeft[left + 1],innerRight[right], Color.Purple),solutions);
+            }
+            else
+            {
+                triangulation.Add(new Line(innerLeft[left], innerRight[right + 1], Color.Purple));
+                AddTemporarySolution(new Line(innerLeft[left],innerRight[right + 1], Color.Purple),solutions);
+                right++;
+            }
+        }
+        else if (canLeft)
+        {
+            triangulation.Add(new Line(innerLeft[left + 1], innerRight[right], Color.Purple));
+            AddTemporarySolution(new Line(innerLeft[left + 1],innerRight[right], Color.Purple),solutions);
+        }
+        else if (canRight)
+        {
+            triangulation.Add(new Line(innerLeft[left], innerRight[right + 1], Color.Purple));
+            AddTemporarySolution(new Line(innerLeft[left],innerRight[right + 1], Color.Purple),solutions);
+            right++;
+        }*/
+        //}
+
+        /*while (left < innerLeft.Count && right < innerRight.Count)
+        {
+            while (left < innerRight.Count && right < innerRight.Count && CanTriangulate(innerLeft, innerRight,innerLeft[left], innerRight[right]))
+            {
+                triangulation.Add(new Line(innerLeft[left], innerRight[right], Color.RosyBrown));
+                AddTemporarySolution(new Line(innerLeft[left],innerRight[right], Color.RosyBrown),solutions);
+                right++;
+            }
+            left++;
+            if (left < innerLeft.Count && right != 0)
+            {
+                triangulation.Add(new Line(innerLeft[left], innerRight[right - 1], Color.RosyBrown));
+                AddTemporarySolution(new Line(innerLeft[left], innerRight[right - 1], Color.RosyBrown), solutions);
+            }
+        }*/
+
+        private static Stack<Dot> GenerateYStack(List<Dot> innerLeft, List<Dot> innerRight)
+        {
+            var dots = innerLeft.Concat(innerRight).OrderByDescending(d => d.Y);
+            var stack = new Stack<Dot>();
+            foreach (var dot in dots)      
+                stack.Push(dot);
+            return stack;
+        }
+        
         
         private static bool CanTriangulate(List<Dot> innerLeft, List<Dot> innerRight,Dot leftPoint, Dot rightPoint)
         {
