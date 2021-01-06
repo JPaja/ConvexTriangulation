@@ -142,7 +142,7 @@ namespace Triangulation.Utils
                 triangulation.Add(new Line(innerLeft[i - 1], innerLeft[i], Color.Purple));
                 AddTemporarySolution(new Line(innerLeft[i - 1], innerLeft[i], Color.Purple), solutions);
             }
-            triangulation.Add(new Line(innerLeft.Last(), botTangent.Dot2, Color.Purple));
+            triangulation.Add(new Line(innerLeft.Last(), botTangent.Dot1, Color.Purple));
             AddTemporarySolution(new Line(innerLeft.Last(), botTangent.Dot1, Color.Purple), solutions);
         }
 
@@ -282,7 +282,7 @@ namespace Triangulation.Utils
             var stack = new Stack<Dot>();
             stack.Push(list[0]);
             stack.Push(list[1]);
-            for (int j = 2; j < list.Length; j++)
+            for (int j = 2; j < list.Length - 1; j++)
             {
                 var uj = list[j];
                 var ujLeft = innerLeft.Contains(uj);
@@ -290,8 +290,8 @@ namespace Triangulation.Utils
                 var vsLeft = innerLeft.Contains(vs);
                 if (ujLeft != vsLeft)
                 {
-                    //todo: check if need rotate
                     var vertices = stack.ToList();
+                    //vertices.Reverse();
                     stack.Clear();
                     for (int i = 0; i < vertices.Count - 1; i++)
                     {
