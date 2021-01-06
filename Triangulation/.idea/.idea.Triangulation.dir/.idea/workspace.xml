@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ec0364c-337c-4d20-afe0-e6d85e703715" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Triangulation.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Triangulation.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utils/PolygonUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/PolygonUtils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +85,7 @@
       <workItem from="1609679196399" duration="4204000" />
       <workItem from="1609876292225" duration="28281000" />
       <workItem from="1609910540033" duration="7452000" />
-      <workItem from="1609935021659" duration="1695000" />
+      <workItem from="1609935021659" duration="2313000" />
     </task>
     <servers />
   </component>

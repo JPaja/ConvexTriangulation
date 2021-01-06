@@ -278,6 +278,31 @@ namespace Triangulation.Utils
             List<(IDrawable, bool Remove)> solutions)
         {
             var triangulation = new List<Line>();
+            var currL = 0;
+            var currR = 0;
+            var lflag = true;
+            var rflag = true;
+            while (currL < innerLeft.Count)
+            {
+                if (rflag && currL + 1 < innerLeft.Count && innerLeft[currL].X > innerLeft[currL + 1].X)
+                {
+                    lflag = !lflag;
+                    rflag = false;
+                }
+                while (currR < innerRight.Count && CanTriangulate(innerLeft, innerLeft, innerLeft[currL], innerRight[currR], lflag))
+                {
+                    triangulation.Add(new Line(innerLeft[currL], innerRight[currR], Color.Pink));
+                    AddTemporarySolution(new Line(innerLeft[currL], innerRight[currR], Color.Pink), solutions);
+                    currR++;
+                }
+                currL++;
+                if (currL < innerLeft.Count)
+                {
+                    triangulation.Add(new Line(innerLeft[currL], innerRight[currR-1], Color.Pink));
+                    AddTemporarySolution(new Line(innerLeft[currL], innerRight[currR-1], Color.Pink), solutions);
+                }
+            }
+            
             /*var stack = GenerateYStack(innerLeft, innerRight);
             while (stack.Count >= 3)
             {
@@ -299,6 +324,16 @@ namespace Triangulation.Utils
             }
 */
             return triangulation;
+        }
+        private static bool CanTriangulate(List<Dot> innerLeft, List<Dot> innerRight,Dot leftPoint, Dot rightPoint, bool lflag)
+        {
+            var leftIndex = innerLeft.IndexOf(leftPoint);
+            if (lflag && leftIndex + 1 < innerLeft.Count && TriangleOrientation(leftPoint, rightPoint, innerLeft[leftIndex + 1]) > 0)
+                return false;
+            var rightIndex = innerRight.IndexOf(rightPoint);
+            if (rightIndex - 1 >= 0 && TriangleOrientation(leftPoint, rightPoint, innerRight[rightIndex - 1]) < 0)
+                return false;
+            return true;
         }
         /*var triangulation = new List<Line>();
         int right = 0;
@@ -380,16 +415,7 @@ namespace Triangulation.Utils
         }
         
         
-        private static bool CanTriangulate(List<Dot> innerLeft, List<Dot> innerRight,Dot leftPoint, Dot rightPoint)
-        {
-            var leftIndex = innerLeft.IndexOf(leftPoint);
-            if (leftIndex + 1 < innerLeft.Count && TriangleOrientation(leftPoint, rightPoint, innerLeft[leftIndex + 1]) > 0)
-                return false;
-            var rightIndex = innerRight.IndexOf(rightPoint);
-            if (rightIndex - 1 >= 0 && TriangleOrientation(leftPoint, rightPoint, innerRight[rightIndex - 1]) > 0)
-                return false;
-            return true;
-        }
+
         
         private static int TriangleOrientation(Dot dot1, Dot dot2, Dot dot3)
         { 
